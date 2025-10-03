@@ -1,0 +1,5 @@
+Flask
+openpyxl
+fugashi
+unidic-lite
+gunicorn

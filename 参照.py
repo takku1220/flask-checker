@@ -55,10 +55,10 @@ def check_food(text):
                 results.append(msg)
 
     if not results:
-        results.append("判定不能です。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>
-もしくはLINE、Slack等で連絡してください。")
+        results.append("判定不能です。<a href=\"https://forms.gle/8YMNuueEZqaEKAox8\" target=\"_blank\">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。")
 
     return results
+
 
 
 

@@ -55,7 +55,8 @@ def check_food(text):
                 results.append(msg)
 
     if not results:
-        results.append("この食品は不明です。LINE、Slack等で連絡してください。[受付時間：8時～21時]")
+        results.append("この食品は不明です。まず、ひらがな、カタカナ、漢字の3パターンを試し、この表示が尚出てくるのであれば、LINE、Slack等で連絡してください。[受付時間：8時～21時]")
 
     return results
+
 

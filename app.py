@@ -58,6 +58,10 @@ def form():
         for line in result:
             print(f"  - {line}")  # ← 結果もログに出ます
     return render_template_string(HTML_FORM, result=result)
+if __name__ == '__main__':
+    import os
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
 
 
 

@@ -7,7 +7,7 @@ HTML_FORM = """
 <!DOCTYPE html>
 <html>
 <head>
-  <title>食品照合フォーム</title>
+  <title>石山　食品照合チェッカー</title>
   <style>
     body {
       font-family: sans-serif;
@@ -27,7 +27,7 @@ HTML_FORM = """
   </style>
 </head>
 <body>
-  <h2>食品照合フォーム</h2>
+  <h2>石山食品照合チェッカー</h2>
   <form method="post">
     <label>食品名：</label>
     <input type="text" name="word" required>
@@ -52,3 +52,4 @@ def form():
         word = request.form.get('word', '')
         result = 参照.check_food(word)
     return render_template_string(HTML_FORM, result=result)
+

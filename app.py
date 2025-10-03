@@ -28,6 +28,8 @@ HTML_FORM = """
 </head>
 <body>
   <h2>石山食品照合チェッカー</h2>
+  <p style="font-size: 1.1em; color: gray;">石山に代わって食品の可否を即時判定します。</p>
+
   <form method="post">
     <label>食品名：</label>
     <input type="text" name="word" required>
@@ -52,4 +54,5 @@ def form():
         word = request.form.get('word', '')
         result = 参照.check_food(word)
     return render_template_string(HTML_FORM, result=result)
+
 

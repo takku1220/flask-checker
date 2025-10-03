@@ -39,7 +39,7 @@ HTML_FORM = """
     <h3>照合結果：</h3>
     <ul>
       {% for line in result %}
-        <li>{{ line }}</li>
+        <li>{{ line|safe }}</li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -62,6 +62,7 @@ if __name__ == '__main__':
     import os
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
+
 
 
 

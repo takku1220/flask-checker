@@ -2,4 +2,7 @@ Flask
 openpyxl
 fugashi
 unidic-lite
+
 gunicorn
+gspread
+oauth2client

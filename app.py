@@ -52,8 +52,13 @@ def form():
     result = None
     if request.method == 'POST':
         word = request.form.get('word', '')
+        print(f"📩 入力された語句：{word}")  # ← これがRenderのログに出ます！
         result = 参照.check_food(word)
+        print("🔍 照合結果：")
+        for line in result:
+            print(f"  - {line}")  # ← 結果もログに出ます
     return render_template_string(HTML_FORM, result=result)
+
 
 
 

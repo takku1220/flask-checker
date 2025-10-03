@@ -1,4 +1,0 @@
-Flask
-openpyxl
-fugashi
-unidic-lite

@@ -1,0 +1,6 @@
+Flask
+gspread
+oauth2client
+fugashi
+unidic-lite
+gunicorn

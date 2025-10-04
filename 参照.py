@@ -45,7 +45,7 @@ def check_food(text):
 
     for sheet_name in sheets:
         rows = get_sheet_data(sheet_name)
-        for row in rows[1:]:  # 1行目はヘッダー
+        for row in rows[3:]:  # 4行目から照合開始
             b_val = row[1] if len(row) > 1 else ""
             c_val = row[2] if len(row) > 2 else ""
 
@@ -69,6 +69,7 @@ def check_food(text):
         results.append('⚠️ 判定不能です。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
 
     return results
+
 
 
 

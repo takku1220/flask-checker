@@ -55,20 +55,21 @@ def check_food(text):
             if normalized_input.lower() == b_val.strip().lower():
                 msg = f"✅ {sheet_name}に完全一致しました：{b_val}"
                 if c_val:
-                    msg += " → 備考あり。注意してください。"
+                    msg += " → 備考：{c_val}"
                 results.append(msg)
                 return results
 
             if token_match(normalized_input, b_val):
                 msg = f"🔍 {sheet_name}に部分一致しました：{b_val}"
                 if c_val:
-                    msg += " → 備考あり。注意してください。"
+                    msg += " → 備考：{c_val}"
                 results.append(msg)
 
     if not results:
         results.append('⚠️ 判定不能です。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
 
     return results
+
 
 
 

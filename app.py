@@ -10,9 +10,14 @@ HTML_FORM = """
   <title>石山　食品照合チェッカー</title>
   <style>
     body {
-      font-family: sans-serif;
-      margin: 40px;
-    }
+  font-family: sans-serif;
+  margin: 40px;
+  background-image: url("/static/images/20230903_054659.jpg"); /* ← 画像のパス */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
     input[type="text"] {
       width: 100%;
       padding: 12px;
@@ -62,6 +67,7 @@ if __name__ == '__main__':
     import os
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
+
 
 
 

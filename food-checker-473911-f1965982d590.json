@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "food-checker-473911",
+  "private_key_id": "f1965982d590e3f32ecab2ece1b54fda93306627",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEmKKTVN34NfBm\nVx8d6gukXCgMQqR0UXaHCKhu7kNr2atDanG4oGYXO9jmHLBqboKsQ3auHxMXbEZI\n2v54bLgX6sb8WIA8/1hqVLy8oafdHbvA27aFLXSAfBsMD3Tsjxk0N2dwbuMf2GWV\n9zBtzFL+exI7UiOZPyMEhSx8WBYjijBxv7fKZ/ABbsY+JdwrLVlmYmZZ1emoA21K\nAF2efyWHe6O/7j3khiPiownWLj/7MMAA79wzL0WJE1PH+AvP3kSeK3fQDLywNdwD\ntf4mmTSJN+yJDi/mLSlaUw/C2vBM1Z2U0WoTBwOiydbmSi/1PFC5j1vJZCYpliY/\n25mi8yKvAgMBAAECggEAC+DLqdUt2B+s17IZ2jKC44+sh8PFsJV0xjHauLZtR73j\nYB5f9+9mW68CVYeUN8oCMSrzp7o5lWe1qL86iBzMKVMbv1wQMMnza0aVZLGWX9YP\nuwD2D9Pa6cxrIe5pJRsm7bBkmowd7ZWjME1laqzhXX4ixYdv89lht0CImzat7RWt\nXQRjlyKn9SuFrUk0hKxBNFZiLD1VbgFOkQM+SwKxYE2OyR2OXy4UZgfKre7CKC9o\nLmEQHbibz9j183G7wF7VyQB399KTjBQH6ISwQvZDRto0a8oj5Q93L33hE7pIsPVP\nEtPWZUV0Ah0n+GVhAuIa3+ZanDHxX5UzAlWGKgcJAQKBgQD+IHD9uuCfOldWTBTe\nZeAOYj8Jc0TR9/yDXOFPvYlnTMDCEDLx7mUhRgzqxLqXj5Y70s2q4w+bqs5XiWdS\n4scDyvmXq5Pfg23d5VLrxXvKiuNdWx4FBhgToUYPR/qAKsEAO6yZZwPEMekcxFvO\nenf+omSJw2i90dfh3QzbjbItgQKBgQDGC6D3xPKLpMuGOEOw6FCZJFyGeYJlE1lv\n81cWcIJ3HNJuQsVk3paIEVBb8eqckjUYzqYB5NzHbYJ7eYbW6vvqvaC2YUvBkcBt\n40y3akh6c2I/cUTnR5EXxd6GAveZc5tIUngHfV2G40ILV735KFQDsGCkeRHepK9h\nZtifo7DILwKBgQCxBUAwPwFBaY51GsJeuXB+FIn8t0L1UF2h1A1PUqRoRNrxU/9o\n77ualgVhdHDWKrtoKMwDge/Za/4YlCpZXodraPS8ZlS3mgHqVFiSzBoTWPRQj6w1\nq60R34HCG02wAhg3ZVox8cR54pqT42RgTIdR5SVLocdQkuBjAWx3dBjuAQKBgC9v\nP5m4uWNLEFhQh54KtqtHc0XeOqYc8VIIFbbRMd53r8srAP589c8XXoj3M3tW5ZLQ\nhCB2AY9eol8Sp4I4fCgoTSMBwNRXJaDsTUatFTkHA+QwLBG9KXppMTgl48oET5AN\n+KPKmikhq4Lt/Bl+WEkd6LfcK7SI+1y39nCeE0yPAoGBAIoTXkFO2mnbdQRE2o3P\nkitHqdyjVdv4prrj2pK6FtFtXerkUAfG69v4fquSNNQn6+eEhqXb0rIT/7cOC/zH\nORLk2XkK5oY28IszuKGZIyrNMghTxC3SafcyNerJ3idvEtmT4e3LY4PMVj2ey1b9\ncsNgbLuO/iqLk/Q7FCTtDlf7\n-----END PRIVATE KEY-----\n",
+  "client_email": "foodchecker@food-checker-473911.iam.gserviceaccount.com",
+  "client_id": "102349484510639438205",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/foodchecker%40food-checker-473911.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

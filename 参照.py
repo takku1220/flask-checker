@@ -32,7 +32,8 @@ def token_match(input_text, target_text):
 # Googleスプレッドシートからデータ取得（Render対応）
 def get_sheet_data(sheet_name):
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    json_str = os.environ.get("food-checker-473911-784ac676008b.json")
+    with open("food-checker-473911-784ac676008b.json", "r") as f:
+    json_str = f.read()
     creds_dict = json.loads(json_str)
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)

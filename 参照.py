@@ -1,6 +1,7 @@
 from fugashi import Tagger
 import unidic_lite
 import os
+import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -28,10 +29,12 @@ def token_match(input_text, target_text):
     target_tokens = to_hiragana_tokens(target_text)
     return any(tok in target_tokens for tok in input_tokens)
 
-# Googleスプレッドシートからデータ取得
+# Googleスプレッドシートからデータ取得（Render対応）
 def get_sheet_data(sheet_name):
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('food-checker-473911-f196582d590.json', scope)
+    json_str = os.environ.get("GSS_CREDENTIAL_JSON")
+    creds_dict = json.loads(json_str)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
     spreadsheet = client.open("石山の規約情報")
     worksheet = spreadsheet.worksheet(sheet_name)
@@ -52,17 +55,19 @@ def check_food(text):
             if not b_val:
                 continue
 
+            # 備考整形（{}を回避）
+            if c_val:
+                c_val = str(c_val).replace("{", "（").replace("}", "）")
+
+            # 完全一致
             if normalized_input.lower() == b_val.strip().lower():
-                msg = f"✅ {sheet_name}に完全一致しました：{b_val}"
-                if c_val:
-                    msg += f"備考：{c_val}"
+                msg = f"✅ {sheet_name}に完全一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else "")
                 results.append(msg)
                 return results
 
+            # 部分一致
             if token_match(normalized_input, b_val):
-                msg = f"🔍 {sheet_name}に部分一致しました：{b_val}"
-                if c_val:
-                    msg += f"備考：{c_val}"
+                msg = f"🔍 {sheet_name}に部分一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else "")
                 results.append(msg)
 
     if not results:

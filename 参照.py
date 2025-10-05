@@ -80,15 +80,17 @@ def check_food(text):
                 results.append(msg)
 
     # ② 食品名で照合できなかった場合 → 原材料をAPIで取得して再照合
-    if not results:
+     if not results:
         ingredients = get_ingredients_from_openfoodfacts(normalized_input)
         if not ingredients:
             results.append('⚠️ 判定不能です。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
             return results
 
         results.append(f"🔍 OpenFoodFactsから原材料を取得しました：{', '.join(ingredients)}")
+        matches = []
 
         for ing in ingredients:
+            found = False
             for sheet_name in sheets:
                 rows = get_sheet_data(sheet_name)
                 for row in rows[3:]:
@@ -99,15 +101,20 @@ def check_food(text):
                     if c_val:
                         c_val = str(c_val).replace("{", "（").replace("}", "）")
                     if ing.lower() == b_val.strip().lower():
-                        msg = f"✅ 原材料「{ing}」が {sheet_name} に完全一致しました" + (f"（備考：{c_val}）" if c_val else "")
-                        results.append(msg)
+                        matches.append(f"✅ 原材料「{ing}」が {sheet_name} に完全一致しました" + (f"（備考：{c_val}）" if c_val else ""))
+                        found = True
                         break
                     if token_match(ing, b_val):
-                        msg = f"🔍 原材料「{ing}」が {sheet_name} に部分一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else "")
-                        results.append(msg)
+                        matches.append(f"🔍 原材料「{ing}」が {sheet_name} に部分一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else ""))
+                        found = True
                         break
+                if found:
+                    break
 
-        if len(results) == 1:
+        if matches:
+            results.extend(matches)
+        else:
             results.append('⚠️ 原材料も照合できませんでした。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
 
     return results
+

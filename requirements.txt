@@ -4,3 +4,4 @@ oauth2client
 fugashi
 unidic-lite
 gunicorn
+requests

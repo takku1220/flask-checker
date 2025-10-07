@@ -61,6 +61,15 @@ def check_food(text):
     normalized_input = text.strip()
     results = []
 
+    # 🥚 イースターエッグ：読み仮名に「かい」が含まれていたら発動（照合は続行）
+    reading = "".join([
+        m.feature[7] if len(m.feature) > 7 and m.feature[7] not in (None, "*") else m.surface
+        for m in tagger(normalized_input)
+    ])
+    if "カイ" in reading or "かい" in reading:
+        results.append("『かい』！...ってなんですかwww")
+
+
     # ① 食品名で照合
     for sheet_name in sheets:
         rows = get_sheet_data(sheet_name)

@@ -62,6 +62,21 @@ def check_food(text):
     normalized_input = text.strip()
     results = []
 
+    # 🥚 イースターエッグ：「かい」に反応（照合は続行）
+    reading = "".join([
+        m.feature[7] if len(m.feature) > 7 and m.feature[7] not in (None, "*") else m.surface
+        for m in tagger(normalized_input)
+    ])
+    kana_map = str.maketrans(
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンヴー",
+        "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぶー"
+    )
+    reading_hira = reading.translate(kana_map).lower()
+
+    if "かい" in reading_hira:
+        results.append("『かい』！...www")
+
+
     # ① 食品名で照合
     for sheet_name in sheets:
         rows = get_sheet_data(sheet_name)

@@ -24,9 +24,9 @@ def to_hiragana_tokens(text):
         tokens.append(hira)
     return tokens
 
-# トークン照合（部分一致）
+# トークン照合（部分一致・助詞「の」除外）
 def token_match(input_text, target_text):
-    input_tokens = to_hiragana_tokens(input_text)
+    input_tokens = [tok for tok in to_hiragana_tokens(input_text) if tok != "の"]
     target_tokens = to_hiragana_tokens(target_text)
     return any(tok in target_tokens for tok in input_tokens)
 

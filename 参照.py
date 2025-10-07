@@ -5,6 +5,8 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from fugashi import Tagger
 import unidic_lite
+import pykakasi
+kks = pykakasi.kakasi()
 
 # MeCab設定
 os.environ["MECABRC"] = os.path.join(unidic_lite.DICDIR, "dicrc")
@@ -18,7 +20,14 @@ def to_hiragana_tokens(text):
     )
     tokens = []
     for m in tagger(text):
-        raw = m.feature[7] if len(m.feature) > 7 and m.feature[7] not in (None, "*") else m.surface
+        # MeCabの読み仮名が使える場合
+        if len(m.feature) > 7 and m.feature[7] not in (None, "*"):
+            raw = m.feature[7]
+        else:
+            # fallback: pykakasiで読みを補完
+            conv = kks.convert(m.surface)
+            raw = conv[0]['hira'] if conv else m.surface
+
         clean = str(raw).split("-")[0]
         hira = clean.translate(kana_map).lower()
         tokens.append(hira)

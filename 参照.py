@@ -75,7 +75,7 @@ def check_food(text):
                 msg = f"✅ {sheet_name}に完全一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else "")
                 results.append(msg)
                 return results
-            if token_match(normalized_input, b_val):
+            elif token_match(normalized_input, b_val):
                 msg = f"🔍 {sheet_name}に部分一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else "")
                 results.append(msg)
 

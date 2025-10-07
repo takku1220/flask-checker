@@ -20,17 +20,17 @@ def to_hiragana_tokens(text):
     )
     tokens = []
     for m in tagger(text):
-        # MeCabの読み仮名が使える場合
         if len(m.feature) > 7 and m.feature[7] not in (None, "*"):
             raw = m.feature[7]
+            clean = str(raw).split("-")[0]
+            hira = clean.translate(kana_map).lower()
+            tokens.append(hira)
         else:
-            # fallback: pykakasiで読みを補完
+            # fallback: pykakasiで分割読みを補完
             conv = kks.convert(m.surface)
-            raw = conv[0]['hira'] if conv else m.surface
-
-        clean = str(raw).split("-")[0]
-        hira = clean.translate(kana_map).lower()
-        tokens.append(hira)
+            for item in conv:
+                hira = item['hira'].translate(kana_map).lower()
+                tokens.append(hira)
     return tokens
 
 # トークン照合（部分一致・助詞「の」除外）

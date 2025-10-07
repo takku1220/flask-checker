@@ -5,3 +5,4 @@ fugashi
 unidic-lite
 gunicorn
 requests
+pykakasi

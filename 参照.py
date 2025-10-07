@@ -82,7 +82,9 @@ def check_food(text):
     )
     reading_hira = reading.translate(kana_map).lower()
 
-    if "かい" in reading_hira:
+    tokens = to_hiragana_tokens(normalized_input)
+
+    if any("かい" in token for token in tokens):
         results.append("『かい』！...www")
 
 

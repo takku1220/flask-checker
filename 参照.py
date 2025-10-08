@@ -8,6 +8,10 @@ import unidic_lite
 import pykakasi
 kks = pykakasi.kakasi()
 
+custom_readings = {
+    "海鮮": "かいせん",
+}
+
 # MeCab設定
 os.environ["MECABRC"] = os.path.join(unidic_lite.DICDIR, "dicrc")
 tagger = Tagger()

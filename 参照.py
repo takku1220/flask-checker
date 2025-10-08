@@ -23,7 +23,7 @@ def to_hiragana_tokens(text):
         "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぶー"
     )
     tokens = []
-    for m in tagger(text):
+for m in tagger(text):
     # ① custom_readingsで補完（完全一致）
     fallback = custom_readings.get(m.surface)
     if fallback:
@@ -51,7 +51,7 @@ def to_hiragana_tokens(text):
     hira = m.surface.translate(kana_map).lower()
     tokens.append(hira)
 
-    return tokens
+return tokens
 
 # トークン照合（部分一致・助詞「の」除外）
 def token_match(input_text, target_text):

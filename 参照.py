@@ -23,30 +23,33 @@ def to_hiragana_tokens(text):
         "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぶー"
     )
     tokens = []
-    for m in tagger(text):
-        # ① fugashiで読み取得
-        if len(m.feature) > 7 and m.feature[7] not in (None, "*"):
-            raw = m.feature[7]
-            clean = str(raw).split("-")[0]
-            hira = clean.translate(kana_map).lower()
+for m in tagger(text):
+    # ① custom_readingsで補完（完全一致）
+    fallback = custom_readings.get(m.surface)
+    if fallback:
+        hira = fallback.translate(kana_map).lower()
+        tokens.append(hira)
+        continue  # 他の処理はスキップ
+
+    # ② fugashiで読み取得
+    if len(m.feature) > 7 and m.feature[7] not in (None, "*"):
+        raw = m.feature[7]
+        clean = str(raw).split("-")[0]
+        hira = clean.translate(kana_map).lower()
+        tokens.append(hira)
+        continue
+
+    # ③ pykakasiで補完
+    conv = kks.convert(m.surface)
+    if conv:
+        for item in conv:
+            hira = item['hira'].translate(kana_map).lower()
             tokens.append(hira)
-        else:
-            # ② pykakasiで補完
-            conv = kks.convert(m.surface)
-            if conv:
-                for item in conv:
-                    hira = item['hira'].translate(kana_map).lower()
-                    tokens.append(hira)
-            else:
-                # ③ custom_readingsで補完（完全一致のみ）
-                fallback = custom_readings.get(m.surface)
-                if fallback:
-                    hira = fallback.translate(kana_map).lower()
-                    tokens.append(hira)
-                else:
-                    # ④ 最後の手段：そのまま追加
-                    hira = m.surface.translate(kana_map).lower()
-                    tokens.append(hira)
+        continue
+
+    # ④ 最後の手段：そのまま追加
+    hira = m.surface.translate(kana_map).lower()
+    tokens.append(hira)
 
     return tokens
 

@@ -159,4 +159,7 @@ def check_food(text):
         if len(results) == 1:
             results.append('⚠️ 原材料も照合できませんでした。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
 
+    if easter_message:
+    results.insert(0, easter_message)  # 先頭に追加して目立たせる
+
     return results

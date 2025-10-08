@@ -23,7 +23,7 @@ def to_hiragana_tokens(text):
         "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぶー"
     )
     tokens = []
-for m in tagger(text):
+    for m in tagger(text):
     # ① custom_readingsで補完（完全一致）
     fallback = custom_readings.get(m.surface)
     if fallback:

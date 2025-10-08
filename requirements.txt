@@ -6,4 +6,3 @@ unidic-lite
 gunicorn
 requests
 pykakasi
-kanjiconv

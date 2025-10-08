@@ -23,13 +23,15 @@ def to_hiragana_tokens(text):
         "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぶー"
     )
     tokens = []
+
     for m in tagger(text):
+        surface = m.surface
+
         # ① custom_readingsで補完（完全一致）
-        fallback = custom_readings.get(m.surface)
-        if fallback:
-            hira = fallback.translate(kana_map).lower()
+        if surface in custom_readings:
+            hira = custom_readings[surface].translate(kana_map).lower()
             tokens.append(hira)
-            continue  # 他の処理はスキップ
+            continue
 
         # ② fugashiで読み取得
         if len(m.feature) > 7 and m.feature[7] not in (None, "*"):
@@ -40,7 +42,7 @@ def to_hiragana_tokens(text):
             continue
 
         # ③ pykakasiで補完
-        conv = kks.convert(m.surface)
+        conv = kks.convert(surface)
         if conv:
             for item in conv:
                 hira = item['hira'].translate(kana_map).lower()
@@ -48,10 +50,10 @@ def to_hiragana_tokens(text):
             continue
 
         # ④ 最後の手段：そのまま追加
-        hira = m.surface.translate(kana_map).lower()
+        hira = surface.translate(kana_map).lower()
         tokens.append(hira)
 
-return tokens
+    return tokens
 
 # トークン照合（部分一致・助詞「の」除外）
 def token_match(input_text, target_text):

@@ -6,3 +6,6 @@ unidic-lite
 gunicorn
 requests
 pykakasi
+kanjiconv
+sudachipy
+sudachidict_core

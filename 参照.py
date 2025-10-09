@@ -39,7 +39,6 @@ def to_hiragana_tokens(text):
             clean = str(raw).split("-")[0]
             hira = clean.translate(kana_map).lower()
             tokens.append(hira)
-            print(f"{hira}")
             continue
 
         # ③ pykakasiで補完

@@ -57,7 +57,7 @@ def to_hiragana_tokens(text):
 
 # トークン照合（部分一致・助詞「の」除外）
 def token_match(input_text, target_text):
-    ignore_tokens = {"の", "（", "(", "）", ")"}  # 除外したい語をここに追加
+    ignore_tokens = {"の", "（", "(", "）", ")", "類"}  # 除外したい語をここに追加
     input_tokens = [tok for tok in to_hiragana_tokens(input_text) if tok not in ignore_tokens]
     target_tokens = to_hiragana_tokens(target_text)
     return any(tok in target_tokens for tok in input_tokens)

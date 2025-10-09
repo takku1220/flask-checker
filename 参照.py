@@ -107,7 +107,7 @@ def check_food(text):
     tokens = to_hiragana_tokens(normalized_input)
 
     if any("かい" in token for token in tokens):
-        easter_message = "『かい』！...www"
+        easter_message = "<div style='color:teal;font-weight:bold;'>『かい』！...www</div>"
 
 
     # ① 食品名で照合

@@ -7,6 +7,7 @@ from fugashi import Tagger
 import unidic_lite
 import pykakasi
 kks = pykakasi.kakasi()
+easter_message = None
 
 custom_readings = {
     "海鮮": "カイセン",

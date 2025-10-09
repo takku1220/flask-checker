@@ -112,7 +112,7 @@ def get_ingredients_from_openfoodfacts(product_name):
 
 # 照合関数（Flaskから呼び出す）
 def check_food(text):
-    user_input = word
+    user_input = text
     sheets = ["不食品", "可食品"]
     normalized_input = text.strip()
     results = []

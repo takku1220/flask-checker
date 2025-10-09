@@ -6,6 +6,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from fugashi import Tagger
 import unidic_lite
 from collections import deque
+from datetime import datetime
 import pykakasi
 kks = pykakasi.kakasi()
 

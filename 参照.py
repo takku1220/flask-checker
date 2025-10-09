@@ -107,7 +107,7 @@ def check_food(text):
 
     tokens = to_hiragana_tokens(normalized_input)
 
-    if any("かい" in token for token in tokens):
+    if any(token.endswith("かい") or "かい" in token for token in tokens):
         print(f"判定対象: {tokens}")
         easter_message = "<div style='color:teal;font-weight:bold;'>『かい』！...www</div>"
 

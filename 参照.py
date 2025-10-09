@@ -10,6 +10,7 @@ kks = pykakasi.kakasi()
 
 custom_readings = {
     "海鮮": "カイセン",
+    "魚介": "ぎょかい",
 }
 
 # MeCab設定

@@ -5,8 +5,30 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from fugashi import Tagger
 import unidic_lite
+from collections import deque
 import pykakasi
 kks = pykakasi.kakasi()
+
+HISTORY_FILE = "history.json"
+MAX_HISTORY = 10
+
+def save_history(entry):
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+            history = deque(json.load(f), maxlen=MAX_HISTORY)
+    else:
+        history = deque(maxlen=MAX_HISTORY)
+
+    history.append(entry)
+
+    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+        json.dump(list(history), f, ensure_ascii=False, indent=2)
+
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return []
 
 custom_readings = {
     "海鮮": "カイセン",
@@ -162,4 +184,40 @@ def check_food(text):
     if easter_message:
         results.insert(0, easter_message)  # 先頭に追加して目立たせる
 
-    return results
+    # 履歴保存用にはイースターエッグを除いた version を使う
+    results_for_history = [r for r in results if r != easter_message]
+
+    # 履歴保存
+    result_entry = {
+        "timestamp": datetime.now().isoformat(),
+        "input": user_input,
+        "tokens": tokens,
+        "results": results_for_history
+    }
+    save_history(result_entry)
+
+    # 履歴読み込み
+    history = load_history()
+    history_html = "<h3>履歴（最新10件）</h3><ul>"
+    for entry in history:
+        timestamp = entry["timestamp"]
+        user_input = entry["input"]
+        result_text = "、".join(entry["results"])
+        history_html += f"<li>{timestamp}｜入力：{user_input}｜結果：{result_text}</li>"
+    history_html += "</ul>"
+
+    # 表示用HTMLを組み立てる
+    html = ""
+
+    if easter_message:
+        html += f"<div style='color:teal;font-weight:bold;'>{easter_message}</div>\n"
+
+    html += "<ul>\n"
+    for r in results:
+        html += f"<li>{r}</li>\n"
+    html += "</ul>\n"
+
+    # 履歴を追加表示
+    html += history_html
+
+    return html

@@ -7,7 +7,6 @@ from fugashi import Tagger
 import unidic_lite
 import pykakasi
 kks = pykakasi.kakasi()
-easter_message = None
 
 custom_readings = {
     "海鮮": "カイセン",
@@ -93,6 +92,7 @@ def check_food(text):
     sheets = ["不食品", "可食品"]
     normalized_input = text.strip()
     results = []
+    easter_message = None
 
     # 🥚 イースターエッグ：「かい」に反応（照合は続行）
     reading = "".join([

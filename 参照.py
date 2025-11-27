@@ -2,6 +2,9 @@ import os
 import json
 import requests
 import gspread
+import smtplib
+from email.mime.text import MIMEText
+from email.utils import formatdate
 from oauth2client.service_account import ServiceAccountCredentials
 from fugashi import Tagger
 import unidic_lite
@@ -88,6 +91,21 @@ def get_ingredients_from_openfoodfacts(product_name):
     ingredients_text = product.get("ingredients_text", "")
     return [i.strip() for i in ingredients_text.replace("、", ",").split(",") if i.strip()]
 
+# メール送信関数
+def send_alert_mail(subject, body, to_addr="25ca031b@rikkyo.ac.jp"):
+    from_addr = "25ca031b@rikkyo.ac.jp"
+    password = "B8rf6CY6"  # Gmailならアプリパスワード推奨
+
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = from_addr
+    msg["To"] = to_addr
+    msg["Date"] = formatdate()
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(from_addr, password)
+        server.send_message(msg)
+
 # 照合関数（Flaskから呼び出す）
 def check_food(text):
     sheets = ["不食品", "可食品"]
@@ -112,7 +130,6 @@ def check_food(text):
     if any("かい" in token for token in tokens):
         easter_message = "<div style='color:teal;font-weight:bold;'>『かい』！...www</div>"
 
-
     # ① 食品名で照合
     for sheet_name in sheets:
         rows = get_sheet_data(sheet_name)
@@ -136,6 +153,11 @@ def check_food(text):
         ingredients = get_ingredients_from_openfoodfacts(normalized_input)
         if not ingredients:
             results.append('⚠️ 判定不能です。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
+            # メール通知
+            send_alert_mail(
+                subject="食品チェックAI: 判定不能",
+                body=f"ユーザー入力: {normalized_input}\n判定不能でした。"
+            )
             return results
 
         results.append(f"🔍 OpenFoodFactsから原材料を取得しました：{', '.join(ingredients)}")
@@ -157,10 +179,13 @@ def check_food(text):
                     if token_match(ing, b_val):
                         msg = f"🔍 原材料「{ing}」が {sheet_name} に部分一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else "")
                         results.append(msg)
-                        break
-
         if len(results) == 1:
             results.append('⚠️ 原材料も照合できませんでした。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
+            # メール通知
+            send_alert_mail(
+                subject="食品チェックAI: 原材料も照合不能",
+                body=f"ユーザー入力: {normalized_input}\nOpenFoodFacts原材料: {', '.join(ingredients)}\n照合不能でした。"
+            )
 
     if easter_message:
         results.insert(0, easter_message)  # 先頭に追加して目立たせる

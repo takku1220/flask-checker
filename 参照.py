@@ -180,7 +180,7 @@ def check_food(text):
                         msg = f"🔍 原材料「{ing}」が {sheet_name} に部分一致しました：{b_val}" + (f"（備考：{c_val}）" if c_val else "")
                         results.append(msg)
         if len(results) == 1:
-            results.append('⚠️ 原材料も照合できませんでした。<a href="https://forms.gle/8YMNuueEZqaEKAox8" target="_blank">Googleフォーム</a>もしくはLINE、Slack等で連絡してください。')
+            results.append('⚠️ 原材料も照合できませんでした。直接確認をとるか、修正を行うまでしばらくお待ちください。')
             # メール通知
             send_alert_mail(
                 subject="食品チェックAI: 原材料も照合不能",
